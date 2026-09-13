@@ -1,0 +1,20 @@
+# ===== 操作系统文件 =====
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# ===== 编辑器/IDE =====
+.vscode/
+.idea/
+*.swp
+*~
+
+# ===== 日志/临时 =====
+*.log
+tmp/
+temp/
+
+# 说明：
+# 本仓库为纯前端发布版，模型文件(.onnx)需要正常提交，请勿忽略。
+# 6 个评估模型(含已转 FP16、均 <100MB 的 3 个 CNN)全部正常提交；不要使用 Git LFS（GitHub Pages 不支持 LFS）。
