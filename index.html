@@ -205,6 +205,28 @@
             font-size: 0.85rem;
         }
 
+        /* 首页 - Vieth 分期表（4列，按序列表现） */
+        .stage-table th, .stage-table td {
+            vertical-align: top;
+            text-align: left;
+            font-size: 0.84rem;
+            line-height: 1.62;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            padding: 10px 12px;
+        }
+        .stage-table th { text-align: center; white-space: nowrap; padding: 10px 8px; }
+        .stage-table td.stage-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 46px;
+            white-space: nowrap;
+        }
+        .stage-table td.interp-cell { font-weight: 600; color: #4a3f9a; }
+        .stage-table .col-t1 { width: 33.5%; }
+        .stage-table .col-fs { width: 33.5%; }
+        .stage-table .col-ip { width: calc(100% - 46px - 67%); }
+
         /* 分割方式选择 */
         .segmentation-choice {
             display: grid;
@@ -299,6 +321,19 @@
             color: #666;
             line-height: 1.5;
         }
+.seg-dice {
+            margin-top: 8px; padding: 6px 9px; font-size: 0.72rem; line-height: 1.5;
+            color: #4a3f9a; background: #eef1ff; border: 1px solid #d9deff;
+            border-radius: 8px; pointer-events: none; text-align: left;
+        }
+        .auto-seg-notice {
+            margin: 6px 0 14px; padding: 9px 13px; font-size: 0.82rem; line-height: 1.55;
+            color: #8a5a00; background: #fff7e6; border: 1px solid #ffe0a3; border-radius: 10px;
+        }
+        .card-metrics { list-style: none; padding: 0; margin: 8px 0 4px; display: grid; gap: 5px; }
+        .card-metrics li { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 0.8rem; line-height: 1.35; }
+        .card-metrics .cm-label { color: #777; }
+        .card-metrics .cm-val { font-weight: 700; color: #4a3f9a; white-space: nowrap; }
 
         .model-size {
             font-size: 0.72rem;
@@ -666,41 +701,53 @@
                 
                 <div class="vieth-intro">
                     <h3 data-i18n="vieth_what_title">📋 什么是Vieth分级？</h3>
-                    <p data-i18n="vieth_what_desc">Vieth分级是一种用于评估膝关节骨骺发育成熟度的方法，通过对股骨远端和胫骨近端骨骺的MRI表现进行分级，来推断骨骼年龄。该方法将骨骺发育分为2-6级，共5个等级。</p>
+                    <p data-i18n="vieth_what_desc">Vieth分级依据T1加权与压脂序列上股骨远端、胫骨近端骨骺的MRI表现评估骨骼成熟程度，共分为1–6期。原始Vieth分级基于T1加权与T2压脂序列建立，本研究采用T1-FSE与PD-FS FSE序列进行评估。第1期为保证分级体系完整而列出，但未出现在所分析的样本队列中；第5、6期在T1加权像上表现相近，需依据PD压脂序列上是否残留高信号骺板信号加以区分。</p>
                     
-                    <table class="grade-table">
+                    <table class="grade-table stage-table">
                         <thead>
                             <tr>
-                                <th data-i18n="col_grade">分级</th>
-                                <th data-i18n="col_femur">股骨远端表现</th>
-                                <th data-i18n="col_tibia">胫骨近端表现</th>
+                                <th data-i18n="v_col_stage">分期</th>
+                                <th class="col-t1" data-i18n="v_col_t1">T1加权像表现</th>
+                                <th class="col-fs" data-i18n="v_col_fs">PD压脂序列表现</th>
+                                <th class="col-ip" data-i18n="v_col_interp">发育意义</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><span class="grade-badge">2</span></td>
-                                <td data-i18n="grade2_femur">骨骺完全未融合，骺板清晰可见</td>
-                                <td data-i18n="grade2_tibia">骨骺完全未融合，骺板清晰可见</td>
+                                <td class="stage-cell"><span class="grade-badge">1</span></td>
+                                <td data-i18n="v_s1_t1">未见骨骺骨化核，骨骺仍完全为软骨。</td>
+                                <td data-i18n="v_s1_fs">未见骨骺骨化核；软骨性骨骺呈高信号。</td>
+                                <td data-i18n="v_s1_ip">骨骺尚未开始骨化。</td>
                             </tr>
                             <tr>
-                                <td><span class="grade-badge">3</span></td>
-                                <td data-i18n="grade3_femur">骨骺开始融合，骺板部分变窄</td>
-                                <td data-i18n="grade3_tibia">骨骺开始融合，骺板部分变窄</td>
+                                <td class="stage-cell"><span class="grade-badge">2</span></td>
+                                <td data-i18n="v_s2_t1">骨骺与干骺端之间可见一条连续的中等信号带，边缘为锯齿状低信号或无信号线。</td>
+                                <td data-i18n="v_s2_fs">可见两条彼此分离的锯齿状高信号线，可连续或不连续。</td>
+                                <td data-i18n="v_s2_ip">骺板开放，未发生融合。</td>
                             </tr>
                             <tr>
-                                <td><span class="grade-badge">4</span></td>
-                                <td data-i18n="grade4_femur">骨骺大部分融合，仍可见残留骺板</td>
-                                <td data-i18n="grade4_tibia">骨骺大部分融合，仍可见残留骺板</td>
+                                <td class="stage-cell"><span class="grade-badge">3</span></td>
+                                <td data-i18n="v_s3_t1">相对的锯齿状线间歇性汇合，中等信号带随之变得不连续。</td>
+                                <td data-i18n="v_s3_fs">两条高信号线间歇性汇合，形成一条纤细的锯齿状线。</td>
+                                <td data-i18n="v_s3_ip">骨骺与干骺端开始早期融合。</td>
                             </tr>
                             <tr>
-                                <td><span class="grade-badge">5</span></td>
-                                <td data-i18n="grade5_femur">骨骺完全融合，可见融合线</td>
-                                <td data-i18n="grade5_tibia">骨骺完全融合，可见融合线</td>
+                                <td class="stage-cell"><span class="grade-badge">4</span></td>
+                                <td data-i18n="v_s4_t1">可见不连续的纤细锯齿状线，局部出现增厚的无信号区。</td>
+                                <td data-i18n="v_s4_fs">仍见不连续或点状高信号线，局部伴增厚的高信号区。</td>
+                                <td data-i18n="v_s4_ip">融合进展，但尚未完全。</td>
                             </tr>
                             <tr>
-                                <td><span class="grade-badge">6</span></td>
-                                <td data-i18n="grade6_femur">骨骺完全成熟，融合线消失</td>
-                                <td data-i18n="grade6_tibia">骨骺完全成熟，融合线消失</td>
+                                <td class="stage-cell"><span class="grade-badge">5</span></td>
+                                <td data-i18n="v_s5_t1">骨骺与干骺端之间仍见一条连续的纤细中等信号线。</td>
+                                <td data-i18n="v_s5_fs">同一部位仍见不连续或点状高信号线。</td>
+                                <td data-i18n="v_s5_ip">已完全骨性融合，但仍残留富含水分的骺板信号。</td>
+                            </tr>
+                            <tr>
+                                <td class="stage-cell"><span class="grade-badge">6</span></td>
+                                <td data-i18n="v_s6_t1">仍见一条连续的纤细中等信号线，与第5期相似。</td>
+                                <td data-i18n="v_s6_fs">相应部位未见高信号骺板信号。</td>
+                                <td data-i18n="v_s6_ip">完全融合，无残留富含水分的骺板信号。</td>
                             </tr>
                         </tbody>
                     </table>
@@ -734,38 +781,56 @@
                     <div class="model-card selected" data-model="pd_t1_resnet">
                         <h4>PD+T1 ResNet <span style="display:inline-block;font-size:.7rem;background:linear-gradient(90deg,#f7971e,#ffd200);color:#fff;border-radius:10px;padding:1px 8px;margin-left:6px;vertical-align:middle;font-weight:700;white-space:nowrap;" data-i18n="best_badge">🏆 最佳模型</span></h4>
                         <span class="model-type dual" data-i18n="type_dual">双模态融合</span>
-                        <p data-i18n="desc_pd_t1_resnet">PD和T1双模态融合，自定义ResNet架构，带CBAM注意力</p>
-                        <div class="model-size" data-i18n="size_256_50">输入: 256×256 | 约50MB</div>
+                        <ul class="card-metrics">
+                            <li><span class="cm-label" data-i18n="card_mae">年龄MAE（男/女，岁）</span><span class="cm-val">0.75/1.08</span></li>
+                            <li><span class="cm-label" data-i18n="card_e1">误差≤1岁占比（男/女）</span><span class="cm-val">76%/52%</span></li>
+                            <li><span class="cm-label" data-i18n="card_qwk">股骨分级QWK（男/女）</span><span class="cm-val">0.96/0.91</span></li>
+                        </ul>
                     </div>
                     <div class="model-card" data-model="pd_t1_cnn">
                         <h4>PD+T1 CNN</h4>
                         <span class="model-type dual" data-i18n="type_dual">双模态融合</span>
-                        <p data-i18n="desc_pd_t1_cnn">PD和T1双模态融合，ResNet50骨干网络</p>
-                        <div class="model-size" data-i18n="size_224_119">输入: 224×224 | 约57MB</div>
+                        <ul class="card-metrics">
+                            <li><span class="cm-label" data-i18n="card_mae">年龄MAE（男/女，岁）</span><span class="cm-val">1.27/1.24</span></li>
+                            <li><span class="cm-label" data-i18n="card_e1">误差≤1岁占比（男/女）</span><span class="cm-val">35%/42%</span></li>
+                            <li><span class="cm-label" data-i18n="card_qwk">股骨分级QWK（男/女）</span><span class="cm-val">0.93/0.87</span></li>
+                        </ul>
                     </div>
                     <div class="model-card" data-model="pd_resnet">
                         <h4>PD ResNet</h4>
                         <span class="model-type single-pd" data-i18n="type_pd">PD单模态</span>
-                        <p data-i18n="desc_pd_resnet">仅使用PD加权图像，自定义ResNet架构</p>
-                        <div class="model-size" data-i18n="size_256_22">输入: 256×256 | 约22MB</div>
+                        <ul class="card-metrics">
+                            <li><span class="cm-label" data-i18n="card_mae">年龄MAE（男/女，岁）</span><span class="cm-val">1.10/1.32</span></li>
+                            <li><span class="cm-label" data-i18n="card_e1">误差≤1岁占比（男/女）</span><span class="cm-val">51%/45%</span></li>
+                            <li><span class="cm-label" data-i18n="card_qwk">股骨分级QWK（男/女）</span><span class="cm-val">0.86/0.81</span></li>
+                        </ul>
                     </div>
                     <div class="model-card" data-model="t1_resnet">
                         <h4>T1 ResNet</h4>
                         <span class="model-type single-t1" data-i18n="type_t1">T1单模态</span>
-                        <p data-i18n="desc_t1_resnet">仅使用T1加权图像，自定义ResNet架构</p>
-                        <div class="model-size" data-i18n="size_256_22">输入: 256×256 | 约22MB</div>
+                        <ul class="card-metrics">
+                            <li><span class="cm-label" data-i18n="card_mae">年龄MAE（男/女，岁）</span><span class="cm-val">0.88/1.01</span></li>
+                            <li><span class="cm-label" data-i18n="card_e1">误差≤1岁占比（男/女）</span><span class="cm-val">63%/57%</span></li>
+                            <li><span class="cm-label" data-i18n="card_qwk">股骨分级QWK（男/女）</span><span class="cm-val">0.87/0.91</span></li>
+                        </ul>
                     </div>
                     <div class="model-card" data-model="pd_cnn">
                         <h4>PD CNN</h4>
                         <span class="model-type single-pd" data-i18n="type_pd">PD单模态</span>
-                        <p data-i18n="desc_pd_cnn">仅使用PD加权图像，ResNet50骨干网络</p>
-                        <div class="model-size" data-i18n="size_224_108">输入: 224×224 | 约26MB</div>
+                        <ul class="card-metrics">
+                            <li><span class="cm-label" data-i18n="card_mae">年龄MAE（男/女，岁）</span><span class="cm-val">1.18/1.18</span></li>
+                            <li><span class="cm-label" data-i18n="card_e1">误差≤1岁占比（男/女）</span><span class="cm-val">44%/43%</span></li>
+                            <li><span class="cm-label" data-i18n="card_qwk">股骨分级QWK（男/女）</span><span class="cm-val">0.91/0.89</span></li>
+                        </ul>
                     </div>
                     <div class="model-card" data-model="t1_cnn">
                         <h4>T1 CNN</h4>
                         <span class="model-type single-t1" data-i18n="type_t1">T1单模态</span>
-                        <p data-i18n="desc_t1_cnn">仅使用T1加权图像，ResNet50骨干网络</p>
-                        <div class="model-size" data-i18n="size_224_108">输入: 224×224 | 约26MB</div>
+                        <ul class="card-metrics">
+                            <li><span class="cm-label" data-i18n="card_mae">年龄MAE（男/女，岁）</span><span class="cm-val">1.18/1.19</span></li>
+                            <li><span class="cm-label" data-i18n="card_e1">误差≤1岁占比（男/女）</span><span class="cm-val">42%/43%</span></li>
+                            <li><span class="cm-label" data-i18n="card_qwk">股骨分级QWK（男/女）</span><span class="cm-val">0.90/0.89</span></li>
+                        </ul>
                     </div>
                 </div>
 
@@ -790,6 +855,7 @@
                 <div class="validation-message" id="validationMsg"></div>
 
                 <div class="section-title" id="uploadTitle" data-i18n="upload_title">上传图像</div>
+                <div id="autoSegNotice" class="auto-seg-notice" style="display:none;"></div>
                 <div class="upload-container" id="uploadContainer"></div>
 
                 <div class="button-row">
@@ -883,22 +949,7 @@
 
         <div style="margin-bottom:20px;">
             <div style="font-size:15px;font-weight:bold;color:#333;border-left:4px solid #667eea;padding-left:8px;margin-bottom:10px;" data-i18n="pdf_vieth_title">Vieth分级说明</div>
-            <table style="width:100%;border-collapse:collapse;font-size:12px;">
-                <thead>
-                    <tr style="background:#667eea;color:#fff;">
-                        <th style="padding:8px;border:1px solid #ddd;width:12%;" data-i18n="col_grade">分级</th>
-                        <th style="padding:8px;border:1px solid #ddd;width:44%;" data-i18n="col_femur">股骨远端表现</th>
-                        <th style="padding:8px;border:1px solid #ddd;width:44%;" data-i18n="col_tibia">胫骨近端表现</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td style="padding:6px 8px;border:1px solid #ddd;text-align:center;">2</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade2_femur">骨骺完全未融合，骺板清晰可见</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade2_tibia">骨骺完全未融合，骺板清晰可见</td></tr>
-                    <tr style="background:#f9f9ff;"><td style="padding:6px 8px;border:1px solid #ddd;text-align:center;">3</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade3_femur">骨骺开始融合，骺板部分变窄</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade3_tibia">骨骺开始融合，骺板部分变窄</td></tr>
-                    <tr><td style="padding:6px 8px;border:1px solid #ddd;text-align:center;">4</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade4_femur">骨骺大部分融合，仍可见残留骺板</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade4_tibia">骨骺大部分融合，仍可见残留骺板</td></tr>
-                    <tr style="background:#f9f9ff;"><td style="padding:6px 8px;border:1px solid #ddd;text-align:center;">5</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade5_femur">骨骺完全融合，可见融合线</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade5_tibia">骨骺完全融合，可见融合线</td></tr>
-                    <tr><td style="padding:6px 8px;border:1px solid #ddd;text-align:center;">6</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade6_femur">骨骺完全成熟，融合线消失</td><td style="padding:6px 8px;border:1px solid #ddd;" data-i18n="grade6_tibia">骨骺完全成熟，融合线消失</td></tr>
-                </tbody>
-            </table>
+            <table style="width:100%;border-collapse:collapse;font-size:9.5px;line-height:1.45;"><thead><tr style="background:#667eea;color:#fff;"><th style="padding:5px 6px;border:1px solid #ddd;width:6%;" data-i18n="v_col_stage"></th><th style="padding:5px 6px;border:1px solid #ddd;width:31%;" data-i18n="v_col_t1"></th><th style="padding:5px 6px;border:1px solid #ddd;width:31%;" data-i18n="v_col_fs"></th><th style="padding:5px 6px;border:1px solid #ddd;width:22%;" data-i18n="v_col_interp"></th></tr></thead><tbody><tr><td style="padding:4px 6px;border:1px solid #ddd;text-align:center;vertical-align:middle;font-weight:bold;">1</td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s1_t1"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s1_fs"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s1_ip"></td></tr><tr style="background:#f9f9ff;"><td style="padding:4px 6px;border:1px solid #ddd;text-align:center;vertical-align:middle;font-weight:bold;">2</td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s2_t1"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s2_fs"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s2_ip"></td></tr><tr><td style="padding:4px 6px;border:1px solid #ddd;text-align:center;vertical-align:middle;font-weight:bold;">3</td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s3_t1"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s3_fs"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s3_ip"></td></tr><tr style="background:#f9f9ff;"><td style="padding:4px 6px;border:1px solid #ddd;text-align:center;vertical-align:middle;font-weight:bold;">4</td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s4_t1"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s4_fs"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s4_ip"></td></tr><tr><td style="padding:4px 6px;border:1px solid #ddd;text-align:center;vertical-align:middle;font-weight:bold;">5</td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s5_t1"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s5_fs"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s5_ip"></td></tr><tr style="background:#f9f9ff;"><td style="padding:4px 6px;border:1px solid #ddd;text-align:center;vertical-align:middle;font-weight:bold;">6</td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s6_t1"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s6_fs"></td><td style="padding:4px 6px;border:1px solid #ddd;vertical-align:top;" data-i18n="v_s6_ip"></td></tr></tbody></table>
         </div>
 
         <div style="margin-top:30px;padding-top:12px;border-top:1px dashed #ccc;font-size:11px;color:#999;line-height:1.6;" data-i18n="pdf_disclaimer">
@@ -992,19 +1043,30 @@
                 // 首页
                 vieth_intro_title: 'Vieth 分级方法介绍',
                 vieth_what_title: '📋 什么是Vieth分级？',
-                vieth_what_desc: 'Vieth分级是一种用于评估膝关节骨骺发育成熟度的方法，通过对股骨远端和胫骨近端骨骺的MRI表现进行分级，来推断骨骼年龄。该方法将骨骺发育分为2-6级，共5个等级。',
+                vieth_what_desc: 'Vieth分级依据T1加权与压脂序列上股骨远端、胫骨近端骨骺的MRI表现评估骨骼成熟程度，共分为1–6期。原始Vieth分级基于T1加权与T2压脂序列建立，本研究采用T1-FSE与PD-FS FSE序列进行评估。第1期为保证分级体系完整而列出，但未出现在所分析的样本队列中；第5、6期在T1加权像上表现相近，需依据PD压脂序列上是否残留高信号骺板信号加以区分。',
                 col_grade: '分级', col_femur: '股骨远端表现', col_tibia: '胫骨近端表现',
+                card_mae: '年龄MAE（男/女，岁）', card_e1: '误差≤1岁占比（男/女）', card_qwk: '股骨分级QWK（男/女）',
                 grade2_femur: '骨骺完全未融合，骺板清晰可见', grade2_tibia: '骨骺完全未融合，骺板清晰可见',
                 grade3_femur: '骨骺开始融合，骺板部分变窄', grade3_tibia: '骨骺开始融合，骺板部分变窄',
                 grade4_femur: '骨骺大部分融合，仍可见残留骺板', grade4_tibia: '骨骺大部分融合，仍可见残留骺板',
                 grade5_femur: '骨骺完全融合，可见融合线', grade5_tibia: '骨骺完全融合，可见融合线',
                 grade6_femur: '骨骺完全成熟，融合线消失', grade6_tibia: '骨骺完全成熟，融合线消失',
+                v_col_stage: '分期', v_col_t1: 'T1加权像表现', v_col_fs: 'PD压脂序列表现', v_col_interp: '发育意义',
+                v_s1_t1: '未见骨骺骨化核，骨骺仍完全为软骨。', v_s1_fs: '未见骨骺骨化核；软骨性骨骺呈高信号。', v_s1_ip: '骨骺尚未开始骨化。',
+                v_s2_t1: '骨骺与干骺端之间可见一条连续的中等信号带，边缘为锯齿状低信号或无信号线。', v_s2_fs: '可见两条彼此分离的锯齿状高信号线，可连续或不连续。', v_s2_ip: '骺板开放，未发生融合。',
+                v_s3_t1: '相对的锯齿状线间歇性汇合，中等信号带随之变得不连续。', v_s3_fs: '两条高信号线间歇性汇合，形成一条纤细的锯齿状线。', v_s3_ip: '骨骺与干骺端开始早期融合。',
+                v_s4_t1: '可见不连续的纤细锯齿状线，局部出现增厚的无信号区。', v_s4_fs: '仍见不连续或点状高信号线，局部伴增厚的高信号区。', v_s4_ip: '融合进展，但尚未完全。',
+                v_s5_t1: '骨骺与干骺端之间仍见一条连续的纤细中等信号线。', v_s5_fs: '同一部位仍见不连续或点状高信号线。', v_s5_ip: '已完全骨性融合，但仍残留富含水分的骺板信号。',
+                v_s6_t1: '仍见一条连续的纤细中等信号线，与第5期相似。', v_s6_fs: '相应部位未见高信号骺板信号。', v_s6_ip: '完全融合，无残留富含水分的骺板信号。',
                 seg_choice_title: '请选择ROI分割方式',
                 seg_choice_desc: 'ROI（感兴趣区域）指的是股骨和胫骨骨骺区域。您可以选择手动上传已标注的ROI掩码，或使用深度学习自动分割。',
                 seg_manual_title: '手动分割并上传ROI',
                 seg_manual_desc: '您已使用ITK-SNAP等工具完成了ROI标注，直接上传原始图像和对应的ROI掩码文件',
                 seg_auto_title: '自动分割ROI',
                 seg_auto_desc: '仅需上传原始MRI图像，系统使用U-Net深度学习模型自动分割股骨和胫骨骨骺区域',
+                seg_auto_notice: '⚠️ 自动分割结果由U-Net深度学习模型生成，请自行核对分割效果；若不理想，可返回上一步改用“手动分割并上传ROI”。',
+                seg_dice_t1: '🧩 U-Net分割精度 Dice（独立测试集）：平均 0.937｜股骨 0.952｜胫骨 0.923',
+                seg_dice_pd: '🧩 U-Net分割精度 Dice（独立测试集）：平均 0.895｜股骨 0.919｜胫骨 0.870',
                 // 上传页
                 model_select_title: '选择评估模型',
                 type_dual: '双模态融合', type_pd: 'PD单模态', type_t1: 'T1单模态',
@@ -1033,9 +1095,9 @@
                 t1_roi_mask: 'T1 ROI掩码', pd_roi_mask: 'PD ROI掩码',
                 single_raw_pd: 'PD加权原始图像', single_raw_t1: 'T1加权原始图像',
                 single_roi_mask_pd: 'PD加权 ROI掩码', single_roi_mask_t1: 'T1加权 ROI掩码',
-                upload_hint_t1: '点击上传 T1 加权 MRI（支持 NIfTI/PNG/JPG）',
-                upload_hint_pd: '点击上传 PD 加权 MRI（支持 NIfTI/PNG/JPG）',
-                upload_hint_single: '点击上传 {modality} MRI（支持 NIfTI/PNG/JPG）',
+                upload_hint_t1: '点击上传 T1 加权 MRI（支持 NIfTI/PNG/JPG，推荐使用 NIfTI）',
+                upload_hint_pd: '点击上传 PD 加权 MRI（支持 NIfTI/PNG/JPG，推荐使用 NIfTI）',
+                upload_hint_single: '点击上传 {modality} MRI（支持 NIfTI/PNG/JPG，推荐使用 NIfTI）',
                 upload_hint_mask: '上传{modality}对应的ROI掩码（黑白图，白色为ROI区域）',
                 upload_hint_mask_single: '上传对应的ROI掩码（黑白图，白色为ROI区域）',
                 label_mask: '🎯 ROI掩码', label_t1: 'T1加权', label_pd: 'PD加权', label_raw: '原始图像',
@@ -1110,19 +1172,30 @@
                 bc_home: 'Home', bc_upload: 'Upload Images', bc_result: 'Results',
                 vieth_intro_title: 'Introduction to Vieth Classification',
                 vieth_what_title: '📋 What is Vieth Classification?',
-                vieth_what_desc: 'Vieth classification is a method for assessing the maturity of knee epiphyseal development. It grades the MRI appearance of the distal femoral and proximal tibial epiphyses to estimate skeletal age. The development is divided into 5 grades, from 2 to 6.',
+                vieth_what_desc: 'The original Vieth classification comprises stages 1–6 and was developed using combined T1-weighted and T2-weighted fat-suppressed sequences. In this study, T1-FSE and PD-FS FSE sequences were evaluated, while acknowledging their different contrast weighting. Stage 1 is included for completeness but was not represented in the analyzed cohort. Stages 5 and 6 have similar T1-weighted appearances and are distinguished by the presence or absence of residual hyperintense physeal signal on the PD-FS sequence.',
                 col_grade: 'Grade', col_femur: 'Distal Femur Findings', col_tibia: 'Proximal Tibia Findings',
+                card_mae: 'Age MAE (M/F, years)', card_e1: '|err|≤1y ratio (M/F)', card_qwk: 'Femur QWK (M/F)',
                 grade2_femur: 'Epiphysis completely unfused, physis clearly visible', grade2_tibia: 'Epiphysis completely unfused, physis clearly visible',
                 grade3_femur: 'Fusion begins, physis partially narrows', grade3_tibia: 'Fusion begins, physis partially narrows',
                 grade4_femur: 'Epiphysis mostly fused, residual physis still visible', grade4_tibia: 'Epiphysis mostly fused, residual physis still visible',
                 grade5_femur: 'Epiphysis completely fused, fusion line visible', grade5_tibia: 'Epiphysis completely fused, fusion line visible',
                 grade6_femur: 'Epiphysis fully mature, fusion line disappeared', grade6_tibia: 'Epiphysis fully mature, fusion line disappeared',
+                v_col_stage: 'Stage', v_col_t1: 'T1-weighted appearance', v_col_fs: 'PD-weighted fat-suppressed appearance', v_col_interp: 'Interpretation',
+                v_s1_t1: 'No ossified epiphyseal nucleus is visible; the epiphysis remains entirely cartilaginous.', v_s1_fs: 'No ossified epiphyseal nucleus is visible; the cartilaginous epiphysis shows high signal intensity.', v_s1_ip: 'Epiphyseal ossification has not begun.',
+                v_s2_t1: 'A continuous intermediate-signal band is present between the epiphysis and metaphysis, bordered by serrated low- or absent-signal lines.', v_s2_fs: 'Two separate serrated hyperintense lines are visible and may be continuous or discontinuous.', v_s2_ip: 'Open physis without fusion.',
+                v_s3_t1: 'The intermediate-signal band becomes discontinuous as the opposing serrated lines intermittently converge.', v_s3_fs: 'The two hyperintense lines intermittently converge into a single thin serrated line.', v_s3_ip: 'Early epiphyseal–metaphyseal fusion.',
+                v_s4_t1: 'A discontinuous thin serrated line is visible, with focal thicker areas of absent signal.', v_s4_fs: 'A discontinuous or dotted hyperintense line remains, with focal thicker hyperintense areas.', v_s4_ip: 'Advanced but incomplete fusion.',
+                v_s5_t1: 'A continuous thin intermediate-signal line remains between the epiphysis and metaphysis.', v_s5_fs: 'A residual discontinuous or dotted hyperintense line is present at the same location.', v_s5_ip: 'Complete bony fusion with residual water-rich physeal signal.',
+                v_s6_t1: 'A continuous thin intermediate-signal line remains, similar to stage 5.', v_s6_fs: 'No corresponding hyperintense physeal signal is present.', v_s6_ip: 'Complete fusion without residual water-rich physeal signal.',
                 seg_choice_title: 'Select ROI Segmentation Method',
                 seg_choice_desc: 'ROI (Region of Interest) refers to the femoral and tibial epiphyseal regions. You can manually upload annotated ROI masks or use deep-learning automatic segmentation.',
                 seg_manual_title: 'Manual Segmentation & Upload ROI',
                 seg_manual_desc: 'You have completed ROI annotation using tools such as ITK-SNAP. Upload the original images and corresponding ROI mask files directly.',
                 seg_auto_title: 'Automatic ROI Segmentation',
                 seg_auto_desc: 'Simply upload the original MRI images. The system uses a U-Net deep learning model to automatically segment the femoral and tibial epiphyseal regions.',
+                seg_auto_notice: '⚠️ Auto-segmentation results are generated by the U-Net deep learning model. Please verify the segmentation yourself; if it is unsatisfactory, go back and choose manual ROI upload instead.',
+                seg_dice_t1: '🧩 U-Net segmentation Dice (independent test set): mean 0.937 | femur 0.952 | tibia 0.923',
+                seg_dice_pd: '🧩 U-Net segmentation Dice (independent test set): mean 0.895 | femur 0.919 | tibia 0.870',
                 model_select_title: 'Select Assessment Model',
                 type_dual: 'Dual-modality Fusion', type_pd: 'PD Single-modality', type_t1: 'T1 Single-modality',
                 desc_pd_t1_resnet: 'PD and T1 dual-modality fusion, custom ResNet architecture with CBAM attention',
@@ -1149,9 +1222,9 @@
                 t1_roi_mask: 'T1 ROI Mask', pd_roi_mask: 'PD ROI Mask',
                 single_raw_pd: 'PD-weighted Original Image', single_raw_t1: 'T1-weighted Original Image',
                 single_roi_mask_pd: 'PD-weighted ROI Mask', single_roi_mask_t1: 'T1-weighted ROI Mask',
-                upload_hint_t1: 'Click to upload T1-weighted MRI (NIfTI/PNG/JPG supported)',
-                upload_hint_pd: 'Click to upload PD-weighted MRI (NIfTI/PNG/JPG supported)',
-                upload_hint_single: 'Click to upload {modality} MRI (NIfTI/PNG/JPG supported)',
+                upload_hint_t1: 'Click to upload T1-weighted MRI (NIfTI/PNG/JPG supported, NIfTI recommended)',
+                upload_hint_pd: 'Click to upload PD-weighted MRI (NIfTI/PNG/JPG supported, NIfTI recommended)',
+                upload_hint_single: 'Click to upload {modality} MRI (NIfTI/PNG/JPG supported, NIfTI recommended)',
                 upload_hint_mask: 'Upload the corresponding ROI mask for {modality} (black & white, white = ROI)',
                 upload_hint_mask_single: 'Upload the corresponding ROI mask (black & white, white = ROI)',
                 label_mask: '🎯 ROI Mask', label_t1: 'T1-weighted', label_pd: 'PD-weighted', label_raw: 'Original Image',
@@ -1380,6 +1453,11 @@
         function updateUploadArea(keepData) {
             const container = document.getElementById('uploadContainer');
             container.innerHTML = '';
+            const __notice = document.getElementById('autoSegNotice');
+            if (__notice) {
+                __notice.style.display = (segmentationMode === 'auto') ? 'block' : 'none';
+                __notice.textContent = t('seg_auto_notice');
+            }
             if (!keepData) {
                 uploadedImages = {};
                 processedTensors = {};
@@ -1430,6 +1508,10 @@
                         </div>
                     `;
                 }
+                if (segmentationMode === 'auto') {
+                    document.getElementById('preview-t1').insertAdjacentHTML('beforeend', '<div class="seg-dice">' + t('seg_dice_t1') + '</div>');
+                    document.getElementById('preview-pd').insertAdjacentHTML('beforeend', '<div class="seg-dice">' + t('seg_dice_pd') + '</div>');
+                }
             } else {
                 // 单模态
                 const modality = config.modality;
@@ -1459,6 +1541,10 @@
                             </div>
                         </div>
                     `;
+                }
+                if (segmentationMode === 'auto') {
+                    const __dk = modality === 'pd' ? 'seg_dice_pd' : 'seg_dice_t1';
+                    document.getElementById('preview-single').insertAdjacentHTML('beforeend', '<div class="seg-dice">' + t(__dk) + '</div>');
                 }
             }
         }
